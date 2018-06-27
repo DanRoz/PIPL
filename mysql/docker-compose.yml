@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mysqlmaster:
+    image: mysql:latest
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+    volumes:
+      - ./data/mysql-master:/var/lib/mysql/:rw
+      - ./config_files/mysql-master:/etc/mysql/conf.d/:ro
+
+  mysqlslave:
+    image: mysql:latest
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+    volumes:
+      - ./data/mysql-slave:/var/lib/mysql/:rw
+      - ./config_files/mysql-slave:/etc/mysql/conf.d/:ro
+
+  mysqlconfigure:
+    image: mysql:latest
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+    volumes:
+      - ./config_files/mysql_connector.sh:/tmp/mysql_connector.sh
+    command: /bin/bash -x /tmp/mysql_connector.sh
