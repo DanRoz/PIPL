@@ -1,0 +1,16 @@
+---
+- name: Run logstash container
+  docker_container:
+    name: logstash
+    image: docker.elastic.co/logstash/logstash-oss:6.3.0
+    volumes:
+      - ./config_files/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./config_files/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    ports:
+      - "5044:5044"
+    exposed:
+      - 5044
+    network_mode: bridge
+    links:
+      - elasticsearch:elasticsearch
+

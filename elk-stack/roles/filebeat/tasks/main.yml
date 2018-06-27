@@ -1,0 +1,11 @@
+---
+- name: Run filebeat container
+  docker_container:
+    name: filebeat
+    image: prima/filebeat:latest
+    volumes:
+      - ./config_files/filebeat.yml:/filebeat.yml
+      - /var/lib/docker/containers:/usr/share/containers_logs
+    network_mode: bridge
+    links:
+      - logstash:logstash

@@ -1,0 +1,14 @@
+---
+- name: Run kibana container
+  docker_container:
+    name: kibana
+    image: docker.elastic.co/kibana/kibana-oss:6.3.0
+    volumes:
+      - ./config_files/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    exposed:
+      - 5601
+    network_mode: bridge
+    links:
+      - elasticsearch:elasticsearch

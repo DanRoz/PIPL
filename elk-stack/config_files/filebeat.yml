@@ -1,0 +1,7 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /usr/share/containers_logs/*/*.log
+
+output.logstash:
+  hosts: ["logstash:5044"]
